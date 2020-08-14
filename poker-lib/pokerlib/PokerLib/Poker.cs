@@ -21,8 +21,10 @@ namespace PokerLib {
             pokerHands.Add ( new OnePair () );
             pokerHands.Add ( new HighCard () );
         }
-
-        public void Evaluate(List<PlayerHand> playerHands) {
+        /*Returns The Winner between Collections of playerHands
+         * 
+         */
+        public List<PlayerHand> Evaluate(List<PlayerHand> playerHands) {
             /*the Reason why i used a List On PlayerRankings is Because it  is possible that 2 or more players can win
              * if their card Ranks are identical, even they have different suit
              */
@@ -57,7 +59,6 @@ namespace PokerLib {
                         rankings.Add (playerHand);
                     }
                 }
-                Console.WriteLine (playerHand.playerName + " : "+playerHand.GetCardString()+" (" + playerHand.pokerHandName + ")");
             }
 
             //if the rankings Contains more than one, A tie breaks will be process As a General Rule High Rank Rule or Rank on Pair Rule
@@ -73,21 +74,10 @@ namespace PokerLib {
                     }
                 }
 
-                if(winners.Count > 1) {
-                    Console.WriteLine ( "Tie" );
-                    for(int i=0;i<winners.Count;i++) {
-                        PlayerHand playerHand = winners[i];
-                        Console.WriteLine ( "Tie Breaker Winner " + playerHand.playerName + " PokerHand " + playerHand.pokerHandName + "(" + playerHand.tieInfo + ")" );
-                    }
-                } else {
-                    PlayerHand playerHand = winners[0];
-                    Console.WriteLine ( "Tie Breaker Winner " + playerHand.playerName + " PokerHand " + playerHand.pokerHandName + "(" + playerHand.tieInfo + ")" );
-                }
+                return winners;
             } else {
-                PlayerHand playerHand = rankings[0];
-                Console.WriteLine ("Winner "+playerHand.playerName + " PokerHand "+playerHand.pokerHandName );
+                return rankings;
             }
-
         }
     }
 }
